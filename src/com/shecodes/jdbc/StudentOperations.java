@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import static com.shecodes.Main.*;
+
 public class StudentOperations {
 
     void newStudent() throws DateException, GenderException, SQLException, ClassNotFoundException {
@@ -54,25 +56,19 @@ public class StudentOperations {
             throw new GenderException(e.getMessage());
         }
         Student student = new Student(registrationNumber.trim(), name.trim(), dob, admin, course.trim(), g);
-        Database db=new Database();
-        db.addStudent(student);
-        db.closeConnection();
+       addStudent(student);
 
     }
 
     void readStudents() throws ClassNotFoundException, SQLException {
-        Database db=new Database();
-        db.viewStudents();
-        db.closeConnection();
+        viewStudents();
     }
     void delete() throws ClassNotFoundException, SQLException {
         Scanner scanner=new Scanner(System.in);
 
         System.out.println("Enter RegNo");
         String searchPhrase=scanner.nextLine();
-        Database db=new Database();
-        db.deleteStudent(searchPhrase);
-        db.closeConnection();
+        deleteStudent(searchPhrase);
         System.out.println("Deleted successfully....");
 
 
@@ -82,9 +78,7 @@ public class StudentOperations {
 
         System.out.println("Enter RegNo");
         String searchPhrase=scanner.nextLine();
-        Database db=new Database();
-        db.searchStudent(searchPhrase);
-        db.closeConnection();
+        searchStudent(searchPhrase);
 
     }
     void update(String regNo) throws DateException, GenderException, ClassNotFoundException, SQLException {
@@ -127,9 +121,7 @@ public class StudentOperations {
             throw new GenderException(e.getMessage());
         }
         Student student = new Student(regNo.trim(), name.trim(), dob, admin, course.trim(), g);
-        Database db=new Database();
-        db.updateStudent(student);
+        updateStudent(student);
         System.out.println("Details Updated Successfully");
-        db.closeConnection();
     }
 }
